@@ -19,7 +19,7 @@ def welcome():
 @app.route('/count')
 def count():
     count = redis_client.incr('visitor_count')
-    return f'Overall Visitors: {count}'
+    return f'This page has been visited: {count} times.'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5002)
