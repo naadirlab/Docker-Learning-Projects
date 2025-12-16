@@ -62,10 +62,9 @@ docker build -t hello-flask .
 docker run -d -p 5002:5002 hello-flask
 docker ps
 ```
+**Why `-p 5002:5002`?**
+This maps port 5002 on your host machine to port 5002 inside the container.
 
 ## Summary
 
-•	Containerised my Python web app with Docker.
-•	Installed system & Python dependencies.
-•	Built Docker image and ran it locally.
-•	Made the app accessible via port 5002.
+I containerised my Python web app using Docker, installed the necessary system and Python dependencies, built the Docker image, and ran it locally, making the app accessible via port 5002.
