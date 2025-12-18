@@ -228,6 +228,7 @@ volumes:
 
 ### nginx.conf file 
 
+``` 
 events {}
 
 http {
@@ -243,6 +244,7 @@ http {
         }
     }
 }
+``` 
 
 Why use Nginx here?
 - When scaling the Flask app to multiple containers, you can’t bind all instances to the same host port.
