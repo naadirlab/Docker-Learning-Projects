@@ -1,11 +1,8 @@
-# Use more stable Python image
-FROM python:3.8-bullseye
+# Stage 1: Build Stage
+FROM python:3.8-bullseye as Build
 
 WORKDIR /app
 
-COPY . .
-
-# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     python3-dev \
@@ -13,8 +10,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pkg-config \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
+COPY . .
+
 RUN pip install --no-cache-dir flask mysqlclient
+
+# Stage 2: Production Stage
+FROM python:3.8-bullseye
+
+WORKDIR /app
+
+COPY --from=Build /app /app
 
 EXPOSE 5002
 
