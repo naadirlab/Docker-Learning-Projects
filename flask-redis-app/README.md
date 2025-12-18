@@ -36,6 +36,9 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5002)
 ```
 
+The line `if __name__ == '__main__': app.run(host='0.0.0.0', port=5002)` starts the Flask server.  
+Using `host='0.0.0.0'` ensures that the server listens on all network interfaces, which is important so that other containers (like Redis) or the host machine can access the app.
+
 ## Dockerfile
 
 Note: Using a python:3.11-slim base image gives a lightweight Python environment.
