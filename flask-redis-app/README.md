@@ -90,6 +90,10 @@ volumes:
   redis-data:
 ```
 
+Why use expose instead of ports for the web service?
+EXPOSE makes the container port visible only to other containers in the Docker network. This prevents conflicts when running multiple web app instances. Nginx can then act as a load balancer and distribute traffic to all web instances.
+
+
 ## nginx.conf file 
 
 ``` 
@@ -119,13 +123,17 @@ Why use Nginx here?
 ## Run Docker-Compose
 
 ```bash
-docker-compose up
+docker-compose up —-scale web=3 —-build
 ```
 
-When the command is run, the application should be accessible locally at http://127.0.0.1:5002.
+- This command starts 3 instances of the Flask web app.
+- Each instance is connected to the shared Redis database.
+- The app should be accessible locally at http://127.0.0.1:5002￼
 
 ## Result
 
-A fully functional Flask application that keeps track of visitor counts, connected to a Redis database, all running in Docker containers.
+A fully functional Flask application that keeps track of visitor counts, connected to a Redis database.
+The application runs in Docker containers, with Redis data persisted using a volume (redis-data).
+Using Docker Compose, multiple instances of the Flask app can run efficiently, and Nginx distributes incoming traffic across them, enabling the app to handle higher load.
 
 ![alt text](../screenshots/Results.png)
