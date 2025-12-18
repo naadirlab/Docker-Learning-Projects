@@ -1,12 +1,12 @@
 # Flask-Redis App
 This project shows step by step how to use Redis to store and retrieve data.
-It demonstrates a multi-container setup with Docker Compose, including a Flask web app, a Redis database, and an Nginx load balancer for handling multiple app instances.
+It demonstrates a multi-container setup with Docker Compose, including a Flask web app, a Redis database, and a Nginx load balancer for handling multiple app instances.
 
 ## App Overview
 
 The Flask_App.py file contains a Flask application with two routes:
-    •	/ : Displays a welcome message in large text, centered on the page.
-    •	/count : Displays a visitor count stored in Redis.
+- / : Displays a welcome message in large text, centered on the page.
+- /count : Displays a visitor count stored in Redis.
 
 ```python
 from flask import Flask
@@ -14,16 +14,19 @@ import redis
 
 app = Flask(__name__)
 
+# Connects to Redis database
 redis_client = redis.Redis(
     host='redis',
     port=6379,
     decode_responses=True
 )
 
+# First Route
 @app.route('/')
 def welcome():
     return "Welcome to my Flask App!"
 
+# Second Route
 @app.route('/count')
 def count():
     count = redis_client.incr('visitor_count')
@@ -34,6 +37,9 @@ if __name__ == '__main__':
 ```
 
 ## Dockerfile
+
+Note: Using a python:3.11-slim base image gives a lightweight Python environment.
+It contains only the essential components, making the Docker image smaller and faster to build.
 
 ```dockerfile
 FROM python:3.11-slim
@@ -107,14 +113,13 @@ Why use Nginx here?
 - This setup makes the application capable to handle higher traffic.
 
 
-## Build and Run
+## Run Docker-Compose
 
 ```bash
-docker build -t flask-redis:v1 .
 docker-compose up
 ```
 
-The application is accessible locally at http://127.0.0.1:5002.
+When the command is run, the application should be accessible locally at http://127.0.0.1:5002.
 
 ## Result
 
