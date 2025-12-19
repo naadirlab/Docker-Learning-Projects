@@ -8,7 +8,7 @@ Each project is stored in its own folder and has its own README with explanation
 
 - hello-flask-app/
 - flask-redis-app/
-- node-app/
+- node-app-dockerhub/
 - more may be added...
 
 ## What I Built
